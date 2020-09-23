@@ -10,8 +10,8 @@ on:
 jobs:
   main:
     name: build and deploy application
-    runs-on: ubuntu-latest              # Type of machine to run job on
-    strategy:                           # Define different variations of an environment to run job
+    runs-on: ubuntu-latest # Type of machine to run job on
+    strategy: # Define different variations of an environment to run job
       matrix:
         node-version: [12.x]
 
@@ -31,8 +31,12 @@ jobs:
         run: npm install
 
       # TODO: Add a stage for running unit tests
+      - name: Run unit tests
+        run: npm test
 
       # TODO: Add a stage for running cypress tests
+      - name: Run cypress
+        run: npm cypress:open
 
       # TODO: Add a stage to generate cypress videos and screenshots as artifacts
 
@@ -44,7 +48,14 @@ jobs:
           git remote set-url origin https://${github_token}@github.com/${repository}
           npm run deploy
         env:
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
           github_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
           repository: ${{ github.repository }}
+          REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
+          REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+          REACT_APP_FIREBASE_DATABASE_URL: ${{ secrets.REACT_APP_FIREBASE_DATABASE_URL }}
+          REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+          REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+          REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
