@@ -30,15 +30,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # TODO: Add a stage for running unit tests
+      # Stage for running unit tests
       - name: Run unit tests
         run: npm run test
 
       # TODO: Add a stage for running cypress tests
-      - name: Run cypress
-        run: |
-          npm start
-          npm run cypress:open
+      # - name: Run cypress
+      #   run: |
+      #     npm start
+      #     npm run cypress:open
 
       # TODO: Add a stage to generate cypress videos and screenshots as artifacts
 
